@@ -22,7 +22,9 @@ export function MainNav({ items, children }) {
   return (
     <>
       <div className="flex gap-6 lg:gap-10">
-        <Logo />
+        <Link href={"/"}>
+          <Logo />
+        </Link>
         {items?.length ? (
           <nav className="hidden gap-6 lg:flex">
             {items?.map((item, index) => (
