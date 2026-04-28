@@ -77,9 +77,12 @@ export async function getCourseDetailsByInstructor(instructorId) {
     }),
   );
 
-  console.log(enrollments);
+  const totalEnrollments = enrollments.reduce((item, currentValue) => {
+    return item.length + currentValue.length;
+  });
 
   return {
     courses: courses.length,
+    enrollments: totalEnrollments,
   };
 }
