@@ -48,7 +48,7 @@ const courses = [
 ];
 const SingleCoursePage = async ({ params: { id } }) => {
   const course = await getCourseDetails(id);
-  console.log(course);
+  console.log(course.testimonials);
   return (
     <>
       <CourseDetailsIntro
