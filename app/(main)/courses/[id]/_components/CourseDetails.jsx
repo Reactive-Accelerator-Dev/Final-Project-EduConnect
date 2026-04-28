@@ -51,7 +51,7 @@ export default function CourseDetails({ course }) {
               <CourseCurriculam course={course} />
             </TabsContent>
             <TabsContent value="instructor">
-              <CourseInstructor />
+              <CourseInstructor course={course} />
             </TabsContent>
           </Tabs>
         </div>
