@@ -34,7 +34,9 @@ export default async function CourseInstructor({ course }) {
                 </li>
                 <li className="flex space-x-3">
                   <UsersRound className="text-gray-600" />
-                  <div>2k+ Student Learned</div>
+                  <div>
+                    {courseDetailsByInstructor?.enrollments} Student Learned
+                  </div>
                 </li>
                 <li className="flex space-x-3">
                   <MessageSquare className="text-gray-600" />
