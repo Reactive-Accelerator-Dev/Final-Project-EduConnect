@@ -1,8 +1,13 @@
+import { getCourseDetailsByInstructor } from "@/queries/courses";
 import { MessageSquare, Presentation, Star, UsersRound } from "lucide-react";
-export default function CourseInstructor({ course }) {
+export default async function CourseInstructor({ course }) {
   const instructor = course?.instructor;
   const fullName = `${instructor?.firstName}  ${instructor?.lastName}`;
+  const courseDetailsByInstructor = await getCourseDetailsByInstructor(
+    instructor._id.toString(),
+  );
 
+  console.log(courseDetailsByInstructor);
   return (
     <>
       <div className="bg-gray-50 rounded-md p-8">
@@ -25,7 +30,7 @@ export default function CourseInstructor({ course }) {
               <ul className="list space-y-4">
                 <li className="flex items-center space-x-3">
                   <Presentation className="text-gray-600" />
-                  <div>10+ Courses</div>
+                  <div>{courseDetailsByInstructor?.courses} Course(s)</div>
                 </li>
                 <li className="flex space-x-3">
                   <UsersRound className="text-gray-600" />

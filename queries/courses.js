@@ -1,6 +1,6 @@
 import {
-  replaceMongoIdInArray,
-  replaceMongoIdInObject,
+    replaceMongoIdInArray,
+    replaceMongoIdInObject,
 } from "@/lib/convertData";
 import { Category } from "@/model/category-model";
 import { Course } from "@/model/course-model";
@@ -64,4 +64,12 @@ export async function getCourseDetails(id) {
     .lean();
 
   return replaceMongoIdInObject(course);
+}
+
+export async function getCourseDetailsByInstructor(instructorId) {
+  const courses = await Course.find({ instructor: instructorId }).lean();
+
+  return {
+    courses: courses.length,
+  };
 }
