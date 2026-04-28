@@ -1,3 +1,4 @@
+import { getCourseDetails } from "@/queries/courses";
 import CourseDetails from "./_components/CourseDetails";
 import CourseDetailsIntro from "./_components/CourseDetailsIntro";
 import RelatedCourses from "./_components/RelatedCourses";
@@ -45,7 +46,9 @@ const courses = [
     thumbnail: "/assets/images/categories/music.jpg",
   },
 ];
-const SingleCoursePage = () => {
+const SingleCoursePage = async ({ params: { id } }) => {
+  const course = await getCourseDetails(id);
+  console.log(course);
   return (
     <>
       <CourseDetailsIntro />
