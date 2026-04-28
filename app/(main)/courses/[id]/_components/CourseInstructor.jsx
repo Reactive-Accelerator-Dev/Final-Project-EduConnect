@@ -7,7 +7,7 @@ export default async function CourseInstructor({ course }) {
     instructor._id.toString(),
   );
 
-  console.log(courseDetailsByInstructor);
+
   return (
     <>
       <div className="bg-gray-50 rounded-md p-8">
