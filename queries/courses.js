@@ -89,10 +89,13 @@ export async function getCourseDetailsByInstructor(instructorId) {
     }),
   );
 
-  console.log("testimonials", testimonials);
+  const totalTestimonials = testimonials.flat();
+
+  console.log("totalTestimonials", totalTestimonials);
 
   return {
     courses: courses.length,
     enrollments: totalEnrollments,
+    reviews: totalTestimonials.length,
   };
 }
