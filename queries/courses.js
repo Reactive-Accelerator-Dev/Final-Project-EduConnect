@@ -91,11 +91,15 @@ export async function getCourseDetailsByInstructor(instructorId) {
 
   const totalTestimonials = testimonials.flat();
 
-  console.log("totalTestimonials", totalTestimonials);
+  const avgRating =
+    totalTestimonials.reduce(function (acc, obj) {
+      return acc + obj.rating;
+    }, 0) / totalTestimonials.length;
 
   return {
     courses: courses.length,
     enrollments: totalEnrollments,
     reviews: totalTestimonials.length,
+    ratings: avgRating.toPrecision(2),
   };
 }
