@@ -49,7 +49,8 @@ const courses = [
     thumbnail: "/assets/images/categories/music.jpg",
   },
 ];
-export default function Testimonials() {
+export default function Testimonials({ testimonials }) {
+  console.log(testimonials);
   return (
     <section className="pb-8 md:pb-12 lg:pb-24">
       <div className="container">
