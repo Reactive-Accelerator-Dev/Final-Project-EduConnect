@@ -53,22 +53,26 @@ export function MainNav({ items, children }) {
           >
             Login
           </Link>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div className="cursor-pointer">
               <Button variant="outline" size="sm">
                 Register
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 mt-4">
-              <DropdownMenuItem className="cursor-pointer">
-                <Link href="">Student</Link>
-              </DropdownMenuItem>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56 mt-4">
+            <DropdownMenuItem className="cursor-pointer">
+              <Link href="">Student</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer" asChild>
               <DropdownMenuItem className="cursor-pointer">
                 <Link href="">Instructor</Link>
               </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div className="cursor-pointer">
