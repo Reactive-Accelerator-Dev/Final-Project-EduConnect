@@ -51,7 +51,11 @@ const SingleCoursePage = async ({ params: { id } }) => {
   console.log(course);
   return (
     <>
-      <CourseDetailsIntro />
+      <CourseDetailsIntro
+        title={course?.title}
+        subtitle={course?.subtitle}
+        thumbnail={course?.thumbnail}
+      />
       <CourseDetails />
       <Testimonials />
       <RelatedCourses />
