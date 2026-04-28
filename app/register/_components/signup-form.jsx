@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,8 +9,27 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 
 export function SignupForm({ role }) {
+  async function onSubmit(event) {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData(event.currentTarget);
+
+      const firstName = formData.get("first-name");
+      const lastName = formData.get("last-name");
+      const email = formData.get("email");
+      const password = formData.get("password");
+      const userRole =
+        role === "student" || role === "instructor" ? role : "student";
+
+
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
@@ -21,7 +39,7 @@ export function SignupForm({ role }) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form onSubmit={onSubmit}>
           <div className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
