@@ -38,11 +38,14 @@ const HomePage = async () => {
             way.”
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center">
-            <Link href="/courses" className={cn(buttonVariants({ size: "lg" }))}>
+            <Link
+              href="/courses"
+              className={cn(buttonVariants({ size: "lg" }))}
+            >
               Explore Now
             </Link>
             <Link
-              href=""
+              href="/register/instructor"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
               Become An Instructor

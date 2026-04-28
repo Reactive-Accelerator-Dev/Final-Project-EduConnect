@@ -43,16 +43,20 @@ export function MobileNav({ items, children }) {
           </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                Register
-              </Button>
+              <div className="cursor-pointer">
+                <Button variant="outline" size="sm">
+                  Register
+                </Button>
+              </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="center" className="w-56 mt-4">
+            <DropdownMenuContent align="end" className="w-56 mt-4">
               <DropdownMenuItem className="cursor-pointer">
-                <Link href="">Student</Link>
+                <Link href="/register/student">Student</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <Link href="">Instructor</Link>
+              <DropdownMenuItem className="cursor-pointer" asChild>
+                <DropdownMenuItem className="cursor-pointer">
+                  <Link href="/register/instructor">Instructor</Link>
+                </DropdownMenuItem>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
