@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { MobileNav } from "@/components/mobile-nav";
 import { Menu, X } from "lucide-react";
@@ -16,9 +16,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-export function MainNav({ items, children }) {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
+import { useSession } from "next-auth/react";
+
+export function MainNav({ items, children }) {
+  const { data: session } = useSession();
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [loginSession, setLoginSession] = useState(null);
+
+  useEffect(() => {
+    console.log("test");
+    setLoginSession(session);
+  }, [session]);
   return (
     <>
       <div className="flex gap-6 lg:gap-10">
@@ -46,33 +55,36 @@ export function MainNav({ items, children }) {
         )}
       </div>
       <nav className="flex items-center gap-3">
-        <div className="items-center gap-3 hidden lg:flex">
-          <Link
-            href="/login"
-            className={cn(buttonVariants({ size: "sm" }), "px-4")}
-          >
-            Login
-          </Link>
-        </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className="cursor-pointer">
-              <Button variant="outline" size="sm">
-                Register
-              </Button>
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56 mt-4">
-            <DropdownMenuItem className="cursor-pointer">
-              <Link href="/register/student">Student</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer" asChild>
-              <DropdownMenuItem className="cursor-pointer">
-                <Link href="/register/instructor">Instructor</Link>
-              </DropdownMenuItem>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {!loginSession && (
+          <div className="items-center gap-3 hidden lg:flex">
+            <Link
+              href="/login"
+              className={cn(buttonVariants({ size: "sm" }), "px-4")}
+            >
+              Login
+            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div className="cursor-pointer">
+                  <Button variant="outline" size="sm">
+                    Register
+                  </Button>
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 mt-4">
+                <DropdownMenuItem className="cursor-pointer">
+                  <Link href="/register/student">Student</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer" asChild>
+                  <DropdownMenuItem className="cursor-pointer">
+                    <Link href="/register/instructor">Instructor</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        )}
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div className="cursor-pointer">
