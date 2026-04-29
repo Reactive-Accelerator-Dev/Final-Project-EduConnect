@@ -10,8 +10,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function SignupForm({ role }) {
+  const router = useRouter();
   async function onSubmit(event) {
     event.preventDefault();
 
@@ -25,7 +27,21 @@ export function SignupForm({ role }) {
       const userRole =
         role === "student" || role === "instructor" ? role : "student";
 
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+          userRole,
+        }),
+      });
 
+      response.status === 201 && router.push("/login");
     } catch (e) {
       console.log(e.message);
     }
