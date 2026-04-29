@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 export function MainNav({ items, children }) {
   const { data: session } = useSession();
@@ -108,7 +108,14 @@ export function MainNav({ items, children }) {
               <Link href="">Testimonials & Certificates</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer" asChild>
-              <Link href="">Logout</Link>
+              <Link
+                href="#"
+                onClick={() => {
+                  signOut();
+                }}
+              >
+                Logout
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
