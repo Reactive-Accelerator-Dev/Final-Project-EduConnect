@@ -21,7 +21,7 @@ export default function CourseDetailsIntro({ course }) {
               </p>
 
               <div className="mt-6 flex items-center justify-center flex-wrap gap-3">
-                <EnrollCourse />
+                <EnrollCourse course={course} />
                 <Link
                   href=""
                   className={cn(

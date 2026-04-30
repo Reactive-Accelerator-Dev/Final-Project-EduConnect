@@ -15,7 +15,7 @@ const SingleCoursePage = async ({ params: { id } }) => {
           testimonials={replaceMongoIdInArray(course?.testimonials)}
         />
       )}
-      <RelatedCourses />
+      {/* <RelatedCourses /> */}
     </>
   );
 };
