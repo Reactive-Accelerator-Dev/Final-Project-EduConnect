@@ -32,7 +32,11 @@ export default async function Success({
   const paymentStatus = paymentIntent?.status;
 
   /* console.log(paymentStatus); */
-
+  // Cutomer info
+  const customerName = `${loggedInUser?.firstName} ${loggedInUser?.lastName}`;
+  const customerEmail = loggedInUser?.email;
+  const productName = course?.title;
+  console.log(productName, customerName, customerEmail);
   if (paymentStatus === "succeeded") {
     // Send Emails to the instructor, student,and the person
     // who paid
