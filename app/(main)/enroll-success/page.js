@@ -1,12 +1,21 @@
+import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { CircleCheck } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default function Success({ searchParams: { session_id, courseId } }) {
+export default async function Success({
+  searchParams: { session_id, courseId },
+}) {
   console.log(session_id, courseId);
 
   if (!session_id)
     throw new Error("Please provide a valid session id that starts with cs_");
+  const userSession = await auth();
+
+  if (!userSession?.user?.email) {
+    redirect("/login");
+  }
 
   return (
     <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
