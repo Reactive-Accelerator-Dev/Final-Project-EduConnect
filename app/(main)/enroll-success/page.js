@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { CircleCheck } from "lucide-react";
 import Link from "next/link";
 
-export default function Success() {
+export default function Success({ searchParams: { session_id, courseId } }) {
+  console.log(session_id, courseId);
   return (
     <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
       <div className="flex flex-col items-center gap-6 max-w-[600px] text-center">

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 
 export default function EnrollCourse({ asLink, course }) {
-  console.log(course);
+//   console.log(course);
   const formAction = async (data) => {
     const { url } = await createCheckoutSession(data);
     window.location.assign(url);
