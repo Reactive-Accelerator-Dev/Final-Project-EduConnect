@@ -36,7 +36,7 @@ export default async function Success({
   const customerName = `${loggedInUser?.firstName} ${loggedInUser?.lastName}`;
   const customerEmail = loggedInUser?.email;
   const productName = course?.title;
-  console.log(productName, customerName, customerEmail);
+//   console.log(productName, customerName, customerEmail);
   if (paymentStatus === "succeeded") {
     // Send Emails to the instructor, student,and the person
     // who paid
@@ -50,7 +50,8 @@ export default async function Success({
           <>
             <CircleCheck className="w-32 h-32 bg-success rounded-full p-0 text-white" />
             <h1 className="text-xl md:text-2xl lg:text-3xl">
-              Congratulations! You Enrollment was Successful
+              Congratulations, <strong>{customerName}</strong>! Your Enrollment
+              was Successful for <strong>{productName}</strong>
             </h1>
           </>
         )}
