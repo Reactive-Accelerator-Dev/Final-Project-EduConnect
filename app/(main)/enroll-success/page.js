@@ -27,7 +27,11 @@ export default async function Success({
     expand: ["line_items", "payment_intent"],
   });
 
-  console.log(checkoutSession)
+  /* console.log(checkoutSession) */
+  const paymentIntent = checkoutSession?.payment_intent;
+  const paymentStatus = paymentIntent?.status;
+
+  console.log(paymentStatus);
 
   return (
     <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
