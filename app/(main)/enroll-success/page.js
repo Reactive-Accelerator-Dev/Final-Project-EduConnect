@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
+import { stripe } from "@/lib/stripe";
 import { getCourseDetails } from "@/queries/courses";
 import { getUserByEmail } from "@/queries/users";
 import { CircleCheck } from "lucide-react";
@@ -21,6 +22,12 @@ export default async function Success({
 
   const course = await getCourseDetails(courseId);
   const loggedInUser = await getUserByEmail(userSession?.user?.email);
+
+  const checkoutSession = await stripe.checkout.sessions.retrieve(session_id, {
+    expand: ["line_items", "payment_intent"],
+  });
+
+  console.log(checkoutSession)
 
   return (
     <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
