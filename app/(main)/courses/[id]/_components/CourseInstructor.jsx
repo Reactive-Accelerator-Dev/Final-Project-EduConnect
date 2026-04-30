@@ -18,6 +18,8 @@ export default async function CourseInstructor({ course }) {
               src={instructor?.profilePicture}
               alt={fullName}
               className="w-full h-full object-cover rounded"
+              width={120}
+              height={120}
             />
           </div>
           <div className="flex-1">
