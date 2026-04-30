@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { getCourseDetails } from "@/queries/courses";
+import { getUserByEmail } from "@/queries/users";
 import { CircleCheck } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -19,7 +20,7 @@ export default async function Success({
   }
 
   const course = await getCourseDetails(courseId);
-  
+  const loggedInUser = await getUserByEmail(userSession?.user?.email);
 
   return (
     <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
