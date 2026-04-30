@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
+import { getCourseDetails } from "@/queries/courses";
 import { CircleCheck } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -16,6 +17,9 @@ export default async function Success({
   if (!userSession?.user?.email) {
     redirect("/login");
   }
+
+  const course = await getCourseDetails(courseId);
+  
 
   return (
     <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
