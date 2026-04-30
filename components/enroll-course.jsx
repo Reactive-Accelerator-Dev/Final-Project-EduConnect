@@ -14,6 +14,9 @@ export default function EnrollCourse({ asLink, course }) {
   return (
     <>
       <form action={formAction}>
+        <input type="hidden" name="courseId" value={course?.id} />
+        <input type="hidden" name="courseName" value={course?.title} />
+        <input type="hidden" name="coursePrice" value={course?.price} />
         {asLink ? (
           <Button
             type="submit"
