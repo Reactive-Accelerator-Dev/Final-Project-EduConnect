@@ -31,15 +31,26 @@ export default async function Success({
   const paymentIntent = checkoutSession?.payment_intent;
   const paymentStatus = paymentIntent?.status;
 
-  console.log(paymentStatus);
+  /* console.log(paymentStatus); */
+
+  if (paymentStatus === "succeeded") {
+    // Send Emails to the instructor, student,and the person
+    // who paid
+    // Update DB(Enrollment collection)
+  }
 
   return (
     <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
       <div className="flex flex-col items-center gap-6 max-w-[600px] text-center">
-        <CircleCheck className="w-32 h-32 bg-success rounded-full p-0 text-white" />
-        <h1 className="text-xl md:text-2xl lg:text-3xl">
-          Congratulations! You Enrollment was Successful
-        </h1>
+        {paymentStatus === "succeeded" && (
+          <>
+            <CircleCheck className="w-32 h-32 bg-success rounded-full p-0 text-white" />
+            <h1 className="text-xl md:text-2xl lg:text-3xl">
+              Congratulations! You Enrollment was Successful
+            </h1>
+          </>
+        )}
+
         <div className="flex items-center gap-3">
           <Button asChild size="sm">
             <Link href="/courses">Browse Courses</Link>
