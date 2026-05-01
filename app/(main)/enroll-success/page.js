@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
+import { sendEmails } from "@/lib/emails";
 import { stripe } from "@/lib/stripe";
 import { getCourseDetails } from "@/queries/courses";
 import { getUserByEmail } from "@/queries/users";
@@ -36,10 +37,28 @@ export default async function Success({
   const customerName = `${loggedInUser?.firstName} ${loggedInUser?.lastName}`;
   const customerEmail = loggedInUser?.email;
   const productName = course?.title;
-//   console.log(productName, customerName, customerEmail);
+  //   console.log(productName, customerName, customerEmail);
   if (paymentStatus === "succeeded") {
     // Send Emails to the instructor, student,and the person
     // who paid
+    const instructorName = `${course?.instructor?.firstName} ${course?.instructor?.lastName}`;
+    const instructorEmail = course?.instructor?.email;
+
+    const emailsToSend = [
+      {
+        to: instructorEmail,
+        subject: `New Enrollment for ${productName}.`,
+        message: `Congratulations, ${instructorName}. A new student, ${customerName} has enrolled to your course ${productName} just now. Please check the instructor dashboard and give a high-five to your new student.`,
+      },
+      {
+        to: customerEmail,
+        subject: `Enrollment Success for ${productName}`,
+        message: `Hey ${customerName} You have successfully enrolled for the course ${productName}`,
+      },
+    ];
+
+    const emailSentResponse = await sendEmails(emailsToSend);
+    console.log('test',emailSentResponse);
     // Update DB(Enrollment collection)
   }
 
