@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { sendEmails } from "@/lib/emails";
 import { stripe } from "@/lib/stripe";
 import { getCourseDetails } from "@/queries/courses";
+import { enrollForCourse } from "@/queries/enrollments";
 import { getUserByEmail } from "@/queries/users";
 import { CircleCheck } from "lucide-react";
 import Link from "next/link";
@@ -37,8 +38,14 @@ export default async function Success({
   const customerName = `${loggedInUser?.firstName} ${loggedInUser?.lastName}`;
   const customerEmail = loggedInUser?.email;
   const productName = course?.title;
-  //   console.log(productName, customerName, customerEmail);
+ // Update DB(Enrollment collection)
   if (paymentStatus === "succeeded") {
+    const enrolled = await enrollForCourse(
+      course?.id,
+      loggedInUser?.id,
+      "stripe",
+    );
+    // console.log(enrolled);
     // Send Emails to the instructor, student,and the person
     // who paid
     const instructorName = `${course?.instructor?.firstName} ${course?.instructor?.lastName}`;
@@ -58,8 +65,8 @@ export default async function Success({
     ];
 
     const emailSentResponse = await sendEmails(emailsToSend);
-    console.log('test',emailSentResponse);
-    // Update DB(Enrollment collection)
+    // console.log(emailSentResponse);
+
   }
 
   return (
