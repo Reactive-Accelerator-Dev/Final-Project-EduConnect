@@ -2,6 +2,7 @@ import { getUserByEmail } from "@/queries/users";
 import ChangePassword from "../component/change-password";
 import ContactInfo from "../component/contact-info";
 import PersonalDetails from "../component/personal-details";
+import { auth } from "@/auth";
 
 async function Profile() {
   const session = await auth();
