@@ -23,10 +23,15 @@ export default function PersonalDetails({ userInfo }) {
     });
   };
 
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+    console.log(infoState);
+  };
+
   return (
     <div className="p-6 rounded-md shadow dark:shadow-gray-800 bg-white dark:bg-slate-900">
       <h5 className="text-lg font-semibold mb-4">Personal Detail :</h5>
-      <form>
+      <form onSubmit={handleUpdate}>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
           <div>
             <Label className="mb-2 block">
