@@ -5,7 +5,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 
-export default function EnrollCourse({ asLink, course }) {
+export default function EnrollCourse({ asLink, courseId }) {
 //   console.log(course);
   const formAction = async (data) => {
     const { url } = await createCheckoutSession(data);
@@ -14,9 +14,7 @@ export default function EnrollCourse({ asLink, course }) {
   return (
     <>
       <form action={formAction}>
-        <input type="hidden" name="courseId" value={course?.id} />
-        <input type="hidden" name="courseName" value={course?.title} />
-        <input type="hidden" name="coursePrice" value={course?.price} />
+        <input type="hidden" name="courseId" value={courseId} />
         {asLink ? (
           <Button
             type="submit"
