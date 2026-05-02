@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-export default function PersonalDetails() {
+export default function PersonalDetails({userInfo}) {
   return (
     <div className="p-6 rounded-md shadow dark:shadow-gray-800 bg-white dark:bg-slate-900">
       <h5 className="text-lg font-semibold mb-4">Personal Detail :</h5>
