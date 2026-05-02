@@ -30,13 +30,13 @@ export default async function EnrolledCourseCard({ enrollment }) {
             <div>
               <BookOpen className="w-4" />
             </div>
-            <span>4 Chapters</span>
+            <span>{enrollment?.course?.modules?.length} Chapters</span>
           </div>
         </div>
         <div className=" border-b pb-2 mb-2">
           <div className="flex items-center justify-between">
             <p className="text-md md:text-sm font-medium text-slate-700">
-              Total Modules: 10
+              Total Modules: {enrollment?.course?.modules?.length}
             </p>
             <p className="text-md md:text-sm font-medium text-slate-700">
               Completed Modules <Badge variant="success">05</Badge>
