@@ -3,7 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 export default function PersonalDetails({ userInfo }) {
+  const [infoState, setInfoState] = useState({
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    email: userInfo.email,
+    designation: userInfo.designation,
+    bio: userInfo.bio,
+  });
+
   return (
     <div className="p-6 rounded-md shadow dark:shadow-gray-800 bg-white dark:bg-slate-900">
       <h5 className="text-lg font-semibold mb-4">Personal Detail :</h5>
@@ -18,6 +27,7 @@ export default function PersonalDetails({ userInfo }) {
               placeholder="First Name:"
               id="firstname"
               name="firstName"
+              value={infoState.firstName}
               required
             />
           </div>
@@ -29,6 +39,7 @@ export default function PersonalDetails({ userInfo }) {
               type="text"
               placeholder="Last Name:"
               name="lastName"
+              value={infoState?.lastName}
               required
             />
           </div>
@@ -36,7 +47,13 @@ export default function PersonalDetails({ userInfo }) {
             <Label className="mb-2 block">
               Your Email : <span className="text-red-600">*</span>
             </Label>
-            <Input type="email" placeholder="Email" name="email" required />
+            <Input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={infoState?.email}
+              disabled
+            />
           </div>
           <div>
             <Label className="mb-2 block">Occupation :</Label>
@@ -44,6 +61,7 @@ export default function PersonalDetails({ userInfo }) {
               name="designation"
               id="occupation"
               type="text"
+              value={infoState?.designation}
               placeholder="Occupation :"
             />
           </div>
@@ -52,7 +70,12 @@ export default function PersonalDetails({ userInfo }) {
         <div className="grid grid-cols-1">
           <div className="mt-5">
             <Label className="mb-2 block">Bio :</Label>
-            <Textarea id="comments" name="bio" placeholder="Message :" />
+            <Textarea
+              id="comments"
+              name="bio"
+              value={infoState?.bio}
+              placeholder="Enter your Bio"
+            />
           </div>
         </div>
         {/*end row*/}
