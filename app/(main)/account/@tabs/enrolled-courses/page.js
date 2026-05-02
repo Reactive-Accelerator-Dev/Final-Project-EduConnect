@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
-import EnrolledCourseCard from "../../component/enrolled-coursecard";
-import { getUserByEmail } from "@/queries/users";
 import { getEnrollmentsForUser } from "@/queries/enrollments";
+import { getUserByEmail } from "@/queries/users";
 import { redirect } from "next/navigation";
+import EnrolledCourseCard from "../../component/enrolled-coursecard";
 
 async function EnrolledCourses() {
   const session = await auth();
@@ -15,11 +15,19 @@ async function EnrolledCourses() {
 
   const enrollments = await getEnrollmentsForUser(loggedInUser?.id);
 
-  console.log(enrollments)
+//   console.log(enrollments);
 
   return (
     <div className="grid sm:grid-cols-2 gap-6">
-      <EnrolledCourseCard />
+      {enrollments && enrollments.length > 0 ? (
+        <>
+          {enrollments.map((enrollment) => (
+            <EnrolledCourseCard key={enrollment?.id} enrollment={enrollment} />
+          ))}
+        </>
+      ) : (
+        <p> No Enrollments found!</p>
+      )}
     </div>
   );
 }
