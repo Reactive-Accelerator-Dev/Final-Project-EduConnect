@@ -13,6 +13,16 @@ export default function PersonalDetails({ userInfo }) {
     bio: userInfo.bio,
   });
 
+  const handleChange = (event) => {
+    const field = event.target.name;
+    const value = event.target.value;
+
+    setInfoState({
+      ...infoState,
+      [field]: value,
+    });
+  };
+
   return (
     <div className="p-6 rounded-md shadow dark:shadow-gray-800 bg-white dark:bg-slate-900">
       <h5 className="text-lg font-semibold mb-4">Personal Detail :</h5>
@@ -28,6 +38,7 @@ export default function PersonalDetails({ userInfo }) {
               id="firstname"
               name="firstName"
               value={infoState.firstName}
+              onChange={handleChange}
               required
             />
           </div>
@@ -40,6 +51,7 @@ export default function PersonalDetails({ userInfo }) {
               placeholder="Last Name:"
               name="lastName"
               value={infoState?.lastName}
+              onChange={handleChange}
               required
             />
           </div>
@@ -52,6 +64,7 @@ export default function PersonalDetails({ userInfo }) {
               placeholder="Email"
               name="email"
               value={infoState?.email}
+              onChange={handleChange}
               disabled
             />
           </div>
@@ -62,6 +75,7 @@ export default function PersonalDetails({ userInfo }) {
               id="occupation"
               type="text"
               value={infoState?.designation}
+              onChange={handleChange}
               placeholder="Occupation :"
             />
           </div>
@@ -75,6 +89,7 @@ export default function PersonalDetails({ userInfo }) {
               name="bio"
               value={infoState?.bio}
               placeholder="Enter your Bio"
+              onChange={handleChange}
             />
           </div>
         </div>
