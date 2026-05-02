@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { ceredntialLogin } from "@/app/api/actions";
+import { ceredntialLogin } from "@/app/actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
