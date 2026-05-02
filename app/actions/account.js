@@ -1,6 +1,7 @@
 "use server";
 
 import { User } from "@/model/user-model";
+import { revalidatePath } from "next/cache";
 
 export async function updateUserInfo(email, updatedData) {
   try {
