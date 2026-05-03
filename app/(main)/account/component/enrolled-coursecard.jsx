@@ -3,13 +3,20 @@ import { BookOpen } from "lucide-react";
 import Image from "next/image";
 
 import { getCategoryDetails } from "@/queries/categories";
+import { getAReport } from "@/queries/reports";
 
 export default async function EnrolledCourseCard({ enrollment }) {
   const courseCategory = await getCategoryDetails(
     enrollment?.course?.category?._id,
   );
 
-  console.log(courseCategory);
+  const filter = {
+    course: enrollment?.course?._id,
+    student: enrollment?.student?._id,
+  };
+
+  const report = await getAReport(filter);
+  console.log("report", report);
   return (
     <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
       <div className="relative w-full aspect-video rounded-md overflow-hidden">
