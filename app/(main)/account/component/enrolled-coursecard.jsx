@@ -29,6 +29,24 @@ export default async function EnrolledCourseCard({ enrollment }) {
   const quizzesTaken = quizzes.filter((q) => q.attempted);
   console.log("quizzesTaken", quizzesTaken);
 
+  // Find how many quizzes answered correct
+
+  const totalCorrect = quizzesTaken
+    .map((quiz) => {
+      const item = quiz.options;
+      return item.filter((o) => {
+        return o.isCorrect === true && o.isSelected === true;
+      });
+    })
+    .filter((elem) => elem.length > 0)
+    .flat();
+
+  const marksFromQuizzes = totalCorrect?.length * 5;
+
+  const otherMarks = report?.quizAssessment?.otherMarks;
+
+  const totalMarks = marksFromQuizzes + otherMarks;
+
   return (
     <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
       <div className="relative w-full aspect-video rounded-md overflow-hidden">
@@ -76,14 +94,18 @@ export default async function EnrolledCourseCard({ enrollment }) {
               Mark from Quizzes
             </p>
 
-            <p className="text-md md:text-sm font-medium text-slate-700">50</p>
+            <p className="text-md md:text-sm font-medium text-slate-700">
+              {marksFromQuizzes}
+            </p>
           </div>
           <div className="flex items-center justify-between mt-2">
             <p className="text-md md:text-sm font-medium text-slate-700">
               Others
             </p>
 
-            <p className="text-md md:text-sm font-medium text-slate-700">50</p>
+            <p className="text-md md:text-sm font-medium text-slate-700">
+              {otherMarks}
+            </p>
           </div>
         </div>
         <div className="flex items-center justify-between mb-4">
@@ -91,7 +113,9 @@ export default async function EnrolledCourseCard({ enrollment }) {
             Total Marks
           </p>
 
-          <p className="text-md md:text-sm font-medium text-slate-700">100</p>
+          <p className="text-md md:text-sm font-medium text-slate-700">
+            {totalMarks}
+          </p>
         </div>
       </div>
     </div>
