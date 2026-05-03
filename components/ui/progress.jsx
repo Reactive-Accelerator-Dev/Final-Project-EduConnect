@@ -1,29 +1,43 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Progress as ProgressPrimitive } from "radix-ui"
+import * as React from "react";
+import * as ProgressPrimitive from "@radix-ui/react-progress";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
+import { cva } from "class-variance-authority";
+const progressVariants = cva("h-full w-full flex-1 bg-primary transition-all", {
+  variants: {
+    variant: {
+      default: "bg-sky-600",
+      success: "bg-emerald-700",
+      primary: "bg-primary",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
-function Progress({
-  className,
-  value,
-  ...props
-}) {
-  return (
+const Progress = React.forwardRef(
+  ({ className, value, variant, ...props }, ref) => (
     <ProgressPrimitive.Root
-      data-slot="progress"
+      ref={ref}
       className={cn(
-        "relative flex h-1 w-full items-center overflow-x-hidden rounded-full bg-muted",
+        "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
         className
       )}
-      {...props}>
+      {...props}
+    >
       <ProgressPrimitive.Indicator
-        data-slot="progress-indicator"
-        className="size-full flex-1 bg-primary transition-all"
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }} />
+        className={
+          ("h-full w-full flex-1 bg-primary transition-all",
+          cn(progressVariants({ variant })))
+        }
+        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+      />
     </ProgressPrimitive.Root>
-  );
-}
+  )
+);
+Progress.displayName = ProgressPrimitive.Root.displayName;
 
-export { Progress }
+export { Progress };
