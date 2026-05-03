@@ -16,7 +16,10 @@ export default async function EnrolledCourseCard({ enrollment }) {
   };
 
   const report = await getAReport(filter);
-  console.log("report", report);
+  //   console.log("report", report);
+
+  // Total Completed Modules
+  const totalCompletedModules = report?.totalCompletedModeules?.length;
   return (
     <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
       <div className="relative w-full aspect-video rounded-md overflow-hidden">
@@ -46,7 +49,8 @@ export default async function EnrolledCourseCard({ enrollment }) {
               Total Modules: {enrollment?.course?.modules?.length}
             </p>
             <p className="text-md md:text-sm font-medium text-slate-700">
-              Completed Modules <Badge variant="success">05</Badge>
+              Completed Modules{" "}
+              <Badge variant="success">{totalCompletedModules}</Badge>
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
