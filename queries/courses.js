@@ -1,12 +1,14 @@
-import {
-  replaceMongoIdInArray,
-  replaceMongoIdInObject,
-} from "@/lib/convertData";
 import { Category } from "@/model/category-model";
 import { Course } from "@/model/course-model";
 import { Module } from "@/model/module.model";
 import { Testimonial } from "@/model/testimonial-model";
 import { User } from "@/model/user-model";
+
+import {
+  replaceMongoIdInArray,
+  replaceMongoIdInObject,
+} from "@/lib/convertData";
+
 import { getEnrollmentsForCourse } from "./enrollments";
 import { getTestimonialsForCourse } from "./testimonials";
 
@@ -78,6 +80,17 @@ export async function getCourseDetailsByInstructor(instructorId) {
     }),
   );
 
+  const groupedByCourses = Object.groupBy(
+    enrollments.flat(),
+    ({ course }) => course,
+  );
+
+  console.log({groupedByCourses})
+
+  const totalRevenue = courses.reduce((acc, course) => {
+    return acc + groupedByCourses[course._id].length * course.price;
+  }, 0);
+
   const totalEnrollments = enrollments.reduce(function (acc, obj) {
     return acc + obj.length;
   }, 0);
@@ -90,16 +103,18 @@ export async function getCourseDetailsByInstructor(instructorId) {
   );
 
   const totalTestimonials = testimonials.flat();
-
   const avgRating =
     totalTestimonials.reduce(function (acc, obj) {
       return acc + obj.rating;
     }, 0) / totalTestimonials.length;
+
+  //console.log("testimonials", totalTestimonials, avgRating);
 
   return {
     courses: courses.length,
     enrollments: totalEnrollments,
     reviews: totalTestimonials.length,
     ratings: avgRating.toPrecision(2),
+    revenue: totalRevenue,
   };
 }
