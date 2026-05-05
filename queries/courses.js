@@ -85,7 +85,7 @@ export async function getCourseDetailsByInstructor(instructorId) {
     ({ course }) => course,
   );
 
-  console.log({groupedByCourses})
+//   console.log({groupedByCourses})
 
   const totalRevenue = courses.reduce((acc, course) => {
     return acc + groupedByCourses[course._id].length * course.price;
