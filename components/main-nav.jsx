@@ -48,7 +48,7 @@ export function MainNav({ items, children }) {
   return (
     <>
       <div className="flex gap-6 lg:gap-10">
-        <Link href={"/"}>
+        <Link href="/">
           <Logo />
         </Link>
         {items?.length ? (
@@ -82,34 +82,26 @@ export function MainNav({ items, children }) {
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <div className="cursor-pointer">
-                  <Button variant="outline" size="sm">
-                    Register
-                  </Button>
-                </div>
+                <Button variant="outline" size="sm">
+                  Register
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 mt-4">
                 <DropdownMenuItem className="cursor-pointer">
                   <Link href="/register/student">Student</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer" asChild>
-                  <DropdownMenuItem className="cursor-pointer">
-                    <Link href="/register/instructor">Instructor</Link>
-                  </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer">
+                  <Link href="/register/instructor">Instructor</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         )}
-
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div className="cursor-pointer">
               <Avatar>
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
+                <AvatarImage src={loggedInUser?.profilePicture} alt="@shadcn" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
@@ -118,8 +110,13 @@ export function MainNav({ items, children }) {
             <DropdownMenuItem className="cursor-pointer" asChild>
               <Link href="/account">Profile</Link>
             </DropdownMenuItem>
+            {loggedInUser?.role === "instructor" && (
+              <DropdownMenuItem className="cursor-pointer" asChild>
+                <Link href="/dashboard">Dashboard</Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem className="cursor-pointer" asChild>
-              <Link href="account/enrolled-courses">My Courses</Link>
+              <Link href="/account/enrolled-courses">My Courses</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer" asChild>
               <Link href="">Testimonials & Certificates</Link>
