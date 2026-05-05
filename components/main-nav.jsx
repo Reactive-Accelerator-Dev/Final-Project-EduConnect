@@ -24,14 +24,26 @@ export function MainNav({ items, children }) {
   const { data: session } = useSession();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [loginSession, setLoginSession] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   if (session?.error === "RefreshAccessTokenError") {
     redirect("/login");
   }
 
   useEffect(() => {
-    console.log("test");
     setLoginSession(session);
+    async function fetchMe() {
+      try {
+        const response = await fetch("/api/me");
+        const data = await response.json();
+        console.log(data);
+        setLoggedInUser(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    fetchMe();
   }, [session]);
   return (
     <>
