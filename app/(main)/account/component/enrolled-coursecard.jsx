@@ -28,7 +28,7 @@ const EnrolledCourseCard = async ({ enrollment }) => {
   const totalQuizzes = quizzes?.length;
 
   // Find attempted quizzes
-  const quizzesTaken = quizzes.filter((q) => q.attempted);
+const quizzesTaken = quizzes?.filter((q) => q.attempted) || [];
   console.log(quizzesTaken);
 
   // Find how many quizzes answered correct
