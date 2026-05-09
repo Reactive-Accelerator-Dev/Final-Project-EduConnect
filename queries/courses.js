@@ -126,3 +126,12 @@ export async function getCourseDetailsByInstructor(instructorId, expand) {
     revenue: totalRevenue,
   };
 }
+
+export async function create(courseData) {
+  try {
+    const course = await Course.create(courseData);
+    return JSON.parse(JSON.stringify(course));
+  } catch (err) {
+    throw new Error(err);
+  }
+}
