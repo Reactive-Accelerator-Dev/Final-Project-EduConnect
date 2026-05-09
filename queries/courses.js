@@ -13,7 +13,7 @@ import { getEnrollmentsForCourse } from "./enrollments";
 import { getTestimonialsForCourse } from "./testimonials";
 
 export async function getCourseList() {
-  const courses = await Course.find({})
+  const courses = await Course.find({active:true})
     .select([
       "title",
       "subtitle",
