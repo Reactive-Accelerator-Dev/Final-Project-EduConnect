@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { createModule } from "@/app/actions/module";
+import { createModule, reOrderModules } from "@/app/actions/module";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -70,6 +70,7 @@ export const ModulesForm = ({ initialData, courseId }) => {
   const onReorder = async (updateData) => {
     console.log({ updateData });
     try {
+      reOrderModules(updateData);
       setIsUpdating(true);
 
       toast.success("Chapters reordered");
