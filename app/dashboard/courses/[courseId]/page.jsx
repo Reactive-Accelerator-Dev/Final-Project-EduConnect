@@ -23,7 +23,9 @@ const EditCourse = async ({ params: { courseId } }) => {
       id: c.id,
     };
   });
-  const modules = replaceMongoIdInArray(course?.modules);
+  const modules = replaceMongoIdInArray(course?.modules).sort(
+    (a, b) => a.order - b.order,
+  );
   return (
     <>
       <AlertBanner
