@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { updateCourse } from "@/app/actions/course";
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combobox";
 import {
@@ -41,6 +42,10 @@ export const CategoryForm = ({ initialData, courseId, options }) => {
   const onSubmit = async (values) => {
     try {
       console.log("values", values);
+      const selectedCategory = options.find(
+        (option) => option.value === values.value,
+      );
+      await updateCourse(courseId, { category: selectedCategory.id });
       toast.success("Course updated");
       toggleEdit();
       router.refresh();
