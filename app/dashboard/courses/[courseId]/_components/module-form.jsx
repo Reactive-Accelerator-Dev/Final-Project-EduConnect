@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { createModule } from "@/app/actions/module";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,7 +21,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ModuleList } from "./module-list";
-import { createModule } from "@/app/actions/module";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -54,13 +54,14 @@ export const ModulesForm = ({ initialData, courseId }) => {
       setModules((modules) => [
         ...modules,
         {
-           id: module?._id.toString(),
+          id: module?._id.toString(),
           title: values.title,
         },
       ]);
       toast.success("Module created");
       toggleCreating();
       router.refresh();
+      form.reset();
     } catch (error) {
       toast.error("Something went wrong");
     }
