@@ -22,7 +22,7 @@ const EditCourse = async ({ params: { courseId } }) => {
       id: c.id,
     };
   });
-//   console.log(mappedCategories);
+  //   console.log(mappedCategories);
   return (
     <>
       <AlertBanner
@@ -49,7 +49,12 @@ const EditCourse = async ({ params: { courseId } }) => {
               initialData={{ description: course?.description }}
               courseId={courseId}
             />
-            <ImageForm initialData={{}} courseId={courseId} />
+            <ImageForm
+              initialData={{
+                imageUrl: `/assets/images/courses/${course.thumbnail}`,
+              }}
+              courseId={courseId}
+            />
             <CategoryForm
               initialData={{ value: course?.category?.title }}
               courseId={courseId}
