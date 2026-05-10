@@ -20,47 +20,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const formSchema = z.object({
-  categoryId: z.string().min(1),
+  value: z.string().min(1),
 });
 
-export const CategoryForm = ({
-  initialData,
-  courseId,
-  options = [
-    {
-      value: "design",
-      label: "Design",
-    },
-    {
-      value: "development",
-      label: "Development",
-    },
-    {
-      value: "marketing",
-      label: "Marketing",
-    },
-    {
-      value: "it_software",
-      label: "IT & Software",
-    },
-    {
-      value: "personal_development",
-      label: "Personal Development",
-    },
-    {
-      value: "business",
-      label: "Business",
-    },
-    {
-      value: "photography",
-      label: "Photography",
-    },
-    {
-      value: "music",
-      label: "Music",
-    },
-  ],
-}) => {
+export const CategoryForm = ({ initialData, courseId, options }) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
 
@@ -77,6 +40,7 @@ export const CategoryForm = ({
 
   const onSubmit = async (values) => {
     try {
+      console.log("values", values);
       toast.success("Course updated");
       toggleEdit();
       router.refresh();

@@ -22,7 +22,7 @@ const EditCourse = async ({ params: { courseId } }) => {
       id: c.id,
     };
   });
-  console.log(mappedCategories);
+//   console.log(mappedCategories);
   return (
     <>
       <AlertBanner
