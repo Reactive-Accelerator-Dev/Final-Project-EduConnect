@@ -69,7 +69,7 @@ export const CategoryForm = ({
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      categoryId: initialData?.categoryId || "",
+      value: initialData?.value || "",
     },
   });
 
@@ -86,7 +86,7 @@ export const CategoryForm = ({
   };
 
   const selectedOptions = options.find(
-    (option) => option.value === initialData.categoryId
+    (option) => option.value === initialData.value,
   );
 
   return (
@@ -108,7 +108,7 @@ export const CategoryForm = ({
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.categoryId && "text-slate-500 italic"
+            !initialData.value && "text-slate-500 italic",
           )}
         >
           {selectedOptions?.label || "No category"}
@@ -123,7 +123,7 @@ export const CategoryForm = ({
           >
             <FormField
               control={form.control}
-              name="categoryId"
+              name="value"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
