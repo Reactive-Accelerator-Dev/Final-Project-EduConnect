@@ -23,7 +23,6 @@ import { ModuleList } from "./module-list";
 const formSchema = z.object({
   title: z.string().min(1),
 });
-
 export const ModulesForm = ({ initialData, courseId }) => {
   const [modules, setModules] = useState(initialData);
   const router = useRouter();
