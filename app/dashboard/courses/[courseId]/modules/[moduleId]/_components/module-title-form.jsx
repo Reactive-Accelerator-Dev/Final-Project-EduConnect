@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { updateModule } from "@/app/actions/module";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,6 +18,7 @@ import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { getSlug } from "@/lib/convertData";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -36,7 +38,10 @@ export const ModuleTitleForm = ({ initialData, courseId, chapterId }) => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values) => {
+    console.log(values);
     try {
+      values["slug"] = getSlug(values.title);
+      await updateModule(chapterId, values);
       toast.success("Module title updated");
       toggleEdit();
       router.refresh();
