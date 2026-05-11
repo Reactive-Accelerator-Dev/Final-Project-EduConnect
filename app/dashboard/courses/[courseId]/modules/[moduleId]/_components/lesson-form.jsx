@@ -39,7 +39,7 @@ const initialLessons = [
     title: "Module 2",
   },
 ];
-export const LessonForm = ({ initialData, moduleId }) => {
+export const LessonForm = ({ initialData, moduleId, courseId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [lessons, setLessons] = useState(initialData);
   const router = useRouter();
@@ -172,7 +172,7 @@ export const LessonForm = ({ initialData, moduleId }) => {
           Drag & Drop to reorder the lessons
         </p>
       )}
-      <LessonModal open={isEditing} setOpen={setIsEditing} />
+      <LessonModal open={isEditing} setOpen={setIsEditing} courseId={courseId} />
     </div>
   );
 };
