@@ -1,23 +1,14 @@
 import { IconBadge } from "@/components/icon-badge";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { LayoutDashboard } from "lucide-react";
-import { Eye } from "lucide-react";
-import { Video } from "lucide-react";
-import { ArrowLeft } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 import Link from "next/link";
-import { LessonTitleForm } from "./lesson-title-form";
-import { LessonDescriptionForm } from "./lesson-description-form";
-import { LessonAccessForm } from "./lesson-access-form";
-import { VideoUrlForm } from "./video-url-form";
 import { CourseActions } from "../../../_components/course-action";
-export const LessonModal = ({ open, setOpen, courseId }) => {
+import { LessonAccessForm } from "./lesson-access-form";
+import { LessonDescriptionForm } from "./lesson-description-form";
+import { LessonTitleForm } from "./lesson-title-form";
+import { VideoUrlForm } from "./video-url-form";
+export const LessonModal = ({ open, setOpen, courseId, lesson }) => {
+  console.log("xxxx", lesson);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {/* <DialogTrigger>Open</DialogTrigger> */}

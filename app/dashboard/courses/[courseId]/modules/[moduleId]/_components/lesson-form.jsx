@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { getSlug } from "@/lib/convertData";
 import { cn } from "@/lib/utils";
 import { Loader2, PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -20,10 +21,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { LessonList } from "./lesson-list";
 import { LessonModal } from "./lesson-modal";
-import { getSlug } from "@/lib/convertData";
 
-import { createLesson } from "@/app/actions/lesson";
-import { reOrderLesson } from "@/app/actions/lesson";
+import { createLesson, reOrderLesson } from "@/app/actions/lesson";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -45,6 +44,8 @@ export const LessonForm = ({ initialData, moduleId, courseId }) => {
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+
+  const [lessonToEdit, setLessonToEdit] = useState(null);
 
   const toggleCreating = () => setIsCreating((current) => !current);
   const toggleEditing = () => setIsEditing((current) => !current);
@@ -100,6 +101,8 @@ export const LessonForm = ({ initialData, moduleId, courseId }) => {
   };
 
   const onEdit = (id) => {
+    const foundLesson = lessons.find((lesson) => lesson.id === id);
+    setLessonToEdit(foundLesson);
     setIsEditing(true);
   };
 
@@ -156,7 +159,7 @@ export const LessonForm = ({ initialData, moduleId, courseId }) => {
         <div
           className={cn(
             "text-sm mt-2",
-            !lessons?.length && "text-slate-500 italic"
+            !lessons?.length && "text-slate-500 italic",
           )}
         >
           {!lessons?.length && "No Lesson"}
@@ -172,7 +175,12 @@ export const LessonForm = ({ initialData, moduleId, courseId }) => {
           Drag & Drop to reorder the lessons
         </p>
       )}
-      <LessonModal open={isEditing} setOpen={setIsEditing} courseId={courseId} />
+      <LessonModal
+        open={isEditing}
+        setOpen={setIsEditing}
+        courseId={courseId}
+        lesson={lessonToEdit}
+      />
     </div>
   );
 };
