@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { Lesson } from "@/model/lesson.model";
 import { Module } from "@/model/module.model";
@@ -13,7 +13,7 @@ export async function createLesson(data) {
 
     console.log(title, slug, moduleId, order);
 
-    const createdLesson = await create({title, slug, order});
+    const createdLesson = await create({ title, slug, order });
     console.log(createdLesson);
 
     const module = await Module.findById(moduleId);
@@ -21,18 +21,28 @@ export async function createLesson(data) {
     module.save();
 
     return createdLesson;
-
   } catch (err) {
     throw new Error(err);
   }
 }
 
 export async function reOrderLesson(data) {
-    try {
-        await Promise.all(data.map(async (element) => {
-                await Lesson.findByIdAndUpdate(element.id, {order: element.position});
-        }));
-    } catch (err) {
-        throw new Error(err);
-    }
+  try {
+    await Promise.all(
+      data.map(async (element) => {
+        await Lesson.findByIdAndUpdate(element.id, { order: element.position });
+      }),
+    );
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+export async function updateLesson(lessonId, data) {
+  console.log("**** updateLesson", lessonId, data);
+  try {
+    await Lesson.findByIdAndUpdate(lessonId, data);
+  } catch (err) {
+    throw new Error(err);
+  }
 }
