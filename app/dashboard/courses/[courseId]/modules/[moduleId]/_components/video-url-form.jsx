@@ -14,11 +14,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { VideoPlayer } from "@/components/video-player";
 import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import { VideoPlayer } from "@/components/video-player";
 
 const formSchema = z.object({
   url: z.string().min(1, {
@@ -69,11 +69,9 @@ export const VideoUrlForm = ({ initialData, courseId, lessonId }) => {
       </div>
       {!isEditing && (
         <>
-          <p className="text-sm mt-2">
-            {"https://www.youtube.com/embed/Cn4G2lZ_g2I?si=8FxqU8_NU6rYOrG1"}
-          </p>
+          <p className="text-sm mt-2">{initialData?.url}</p>
           <div className="mt-6">
-            <VideoPlayer />
+            <VideoPlayer url={initialData?.url} />
           </div>
         </>
       )}
