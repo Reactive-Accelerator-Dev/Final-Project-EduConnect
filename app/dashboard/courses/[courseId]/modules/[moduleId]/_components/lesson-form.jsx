@@ -20,6 +20,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { LessonList } from "./lesson-list";
 import { LessonModal } from "./lesson-modal";
+import { getSlug } from "@/lib/convertData";
+
+import { createLesson } from "@/app/actions/lesson";
+import { reOrderLesson } from "@/app/actions/lesson";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -27,17 +31,17 @@ const formSchema = z.object({
 const initialLessons = [
   {
     id: "1",
-    title: "Lesson 1",
+    title: "Module 1",
     active: true,
   },
   {
     id: "2",
-    title: "Lesson 2",
+    title: "Module 2",
   },
 ];
-export const LessonForm = ({ initialData, LessonId }) => {
+export const LessonForm = ({ initialData, moduleId }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [lessons, setLessons] = useState(initialLessons);
+  const [lessons, setLessons] = useState(initialData);
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -55,11 +59,21 @@ export const LessonForm = ({ initialData, LessonId }) => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values) => {
+    console.log(values);
     try {
+      const formData = new FormData();
+
+      formData.append("title", values.title);
+      formData.append("slug", getSlug(values.title));
+      formData.append("moduleId", moduleId);
+      formData.append("order", lessons.length);
+
+      const lesson = await createLesson(formData);
+
       setLessons((lessons) => [
         ...lessons,
         {
-          id: Date.now().toString(),
+          id: lesson?._id.toString(),
           title: values.title,
         },
       ]);
@@ -75,7 +89,7 @@ export const LessonForm = ({ initialData, LessonId }) => {
     console.log({ updateData });
     try {
       setIsUpdating(true);
-
+      await reOrderLesson(updateData);
       toast.success("Lesson reordered");
       router.refresh();
     } catch {
@@ -97,7 +111,7 @@ export const LessonForm = ({ initialData, LessonId }) => {
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
-        Lesson Lessions
+        Module Lessions
         <Button variant="ghost" onClick={toggleCreating}>
           {isCreating ? (
             <>Cancel</>
