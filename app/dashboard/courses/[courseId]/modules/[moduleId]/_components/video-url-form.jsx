@@ -19,6 +19,7 @@ import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { updateLesson } from "@/app/actions/lesson";
 
 const formSchema = z.object({
   url: z.string().min(1, {
@@ -44,9 +45,23 @@ export const VideoUrlForm = ({ initialData, courseId, lessonId }) => {
 
   const onSubmit = async (values) => {
     try {
-      toast.success("Lesson updated");
-      toggleEdit();
-      router.refresh();
+      const payload = {};
+      payload["video_url"] = values?.url;
+      console.log(payload);
+      const duration = values?.duration;
+      const splitted = duration.split(":");
+      console.log(splitted);
+      if (splitted.length === 3) {
+        payload["duration"] =
+          splitted[0] * 3600 + splitted[1] * 60 + splitted[2] * 1;
+        console.log(lessonId, payload);
+        await updateLesson(lessonId, payload);
+        toast.success("Lesson updated");
+        toggleEdit();
+        router.refresh();
+      } else {
+        toast.error("The duration format must be hh:mm:ss`");
+      }
     } catch {
       toast.error("Something went wrong");
     }
