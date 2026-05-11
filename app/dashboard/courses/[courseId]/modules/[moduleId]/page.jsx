@@ -6,10 +6,15 @@ import Link from "next/link";
 import { CourseActions } from "../../_components/course-action";
 import { LessonForm } from "./_components/lesson-form";
 import { ModuleTitleForm } from "./_components/module-title-form";
+import { replaceMongoIdInArray } from "@/lib/convertData";
 
 const Module = async ({ params: { courseId, moduleId } }) => {
   const module = await getModule(moduleId);
   console.log(module);
+
+  const lessons = replaceMongoIdInArray(module.lessonIds).sort((a, b ) => a.order - b.order);
+
+  console.log(lessons);
   return (
     <>
       <AlertBanner
