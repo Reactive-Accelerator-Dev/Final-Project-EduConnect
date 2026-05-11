@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { updateLesson } from "@/app/actions/lesson";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,11 +16,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { VideoPlayer } from "@/components/video-player";
+import { formatDuration } from "@/lib/date";
 import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import { updateLesson } from "@/app/actions/lesson";
 
 const formSchema = z.object({
   url: z.string().min(1, {
@@ -36,9 +37,13 @@ export const VideoUrlForm = ({ initialData, courseId, lessonId }) => {
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
+  const formData = {
+    ...initialData,
+    duration: formatDuration(initialData?.duration),
+  };
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: formData,
   });
 
   const { isSubmitting, isValid } = form.formState;
