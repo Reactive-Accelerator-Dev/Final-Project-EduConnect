@@ -180,6 +180,7 @@ export const LessonForm = ({ initialData, moduleId, courseId }) => {
         setOpen={setIsEditing}
         courseId={courseId}
         lesson={lessonToEdit}
+        moduleId={moduleId}
       />
     </div>
   );
