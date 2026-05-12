@@ -2,6 +2,7 @@
 
 import { Trash } from "lucide-react";
 
+import { changeLessonPublishState } from "@/app/actions/lesson";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -16,6 +17,9 @@ export const LessonActions = ({ lesson, moduleId, onDelete }) => {
     try {
       switch (action) {
         case "change-active": {
+          const activeState = await changeLessonPublishState(lesson.id);
+          setPublished(!activeState);
+          toast.success("The lesson has been updated");
           break;
         }
 

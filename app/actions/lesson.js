@@ -46,3 +46,18 @@ export async function updateLesson(lessonId, data) {
     throw new Error(err);
   }
 }
+
+export async function changeLessonPublishState(lessonId) {
+  console.log("changeLessonPublishState", lessonId);
+  const lesson = await Lesson.findById(lessonId);
+  try {
+    const res = await Lesson.findByIdAndUpdate(
+      lessonId,
+      { active: !lesson.active },
+      { lean: true },
+    );
+    return res.active;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
