@@ -7,6 +7,7 @@ import { LessonAccessForm } from "./lesson-access-form";
 import { LessonDescriptionForm } from "./lesson-description-form";
 import { LessonTitleForm } from "./lesson-title-form";
 import { VideoUrlForm } from "./video-url-form";
+import { LessonActions } from "./lesson-action";
 export const LessonModal = ({ open, setOpen, courseId, lesson }) => {
   console.log("xxxx", lesson);
   return (
@@ -29,7 +30,7 @@ export const LessonModal = ({ open, setOpen, courseId, lesson }) => {
                 Back to course setup
               </Link>
               <div className="flex items-center justify-end">
-                <CourseActions />
+                <LessonActions/>
               </div>
             </div>
           </div>
