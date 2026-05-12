@@ -4,6 +4,7 @@ import { Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export const LessonActions = ({ lesson, moduleId, onDelete }) => {
   const [action, setAction] = useState(null);
@@ -11,6 +12,24 @@ export const LessonActions = ({ lesson, moduleId, onDelete }) => {
   async function handleSubmit(event) {
     event.preventDefault();
     console.log(action);
+
+    try {
+      switch (action) {
+        case "change-active": {
+          break;
+        }
+
+        case "delete": {
+          break;
+        }
+
+        default: {
+          throw new Error("Invalid Lesson Action");
+        }
+      }
+    } catch (e) {
+      toast.error(e.message);
+    }
   }
   return (
     <form onSubmit={handleSubmit}>
