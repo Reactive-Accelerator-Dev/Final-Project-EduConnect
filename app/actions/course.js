@@ -3,6 +3,7 @@
 import { getLoggedInUser } from "@/lib/loggedin-user";
 import { Course } from "@/model/course-model";
 import { create } from "@/queries/courses";
+import mongoose from "mongoose";
 
 export async function createCourse(data) {
   try {
@@ -42,5 +43,17 @@ export async function deleteCourse(courseId) {
     await Course.findByIdAndDelete(courseId);
   } catch (err) {
     throw new Error(err);
+  }
+}
+
+export async function updateQuizSetForCourse(courseId, dataToUpdate) {
+  console.log(courseId, dataToUpdate);
+  const data = {};
+  data["quizSet"] = new mongoose.Types.ObjectId(dataToUpdate.quizSetId);
+  console.log(data);
+  try {
+    await Course.findByIdAndUpdate(courseId, data);
+  } catch (error) {
+    throw new Error(error);
   }
 }
