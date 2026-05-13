@@ -4,6 +4,8 @@ import Image from "next/image";
 
 import { getCategoryDetails } from "@/queries/categories";
 
+import { CourseProgress } from "@/components/course-progress";
+import { getCourseDetails } from "@/queries/courses";
 import { getAReport } from "@/queries/reports";
 
 const EnrolledCourseCard = async ({ enrollment }) => {
@@ -20,15 +22,26 @@ const EnrolledCourseCard = async ({ enrollment }) => {
 
   //console.log(report);
 
+  // Get Total Module Number
+  const courseDetails = await getCourseDetails(enrollment?.course?._id);
+  const totalModuleCount = courseDetails?.modules?.length;
+
   // Total Completed Modules
-  const totalCompletedModules = report?.totalCompletedModeules?.length;
+  const totalCompletedModules = report?.totalCompletedModeules
+    ? report?.totalCompletedModeules?.length
+    : 0;
+
+  // Total Progress
+  const totalProgress = totalModuleCount
+    ? (totalCompletedModules / totalModuleCount) * 100
+    : 0;
 
   // Get all Quizzes and Assignments
   const quizzes = report?.quizAssessment?.assessments;
   const totalQuizzes = quizzes?.length;
 
   // Find attempted quizzes
-const quizzesTaken = quizzes?.filter((q) => q.attempted) || [];
+  const quizzesTaken = quizzes?.filter((q) => q.attempted) || [];
   console.log(quizzesTaken);
 
   // Find how many quizzes answered correct
@@ -122,11 +135,11 @@ const quizzesTaken = quizzes?.filter((q) => q.attempted) || [];
           </p>
         </div>
 
-        {/*<CourseProgress
-						size="sm"
-						value={80}
-						variant={110 === 100 ? "success" : ""}
-	/>*/}
+        <CourseProgress
+          size="sm"
+          value={totalProgress}
+          variant={110 === 100 ? "success" : ""}
+        />
       </div>
     </div>
   );
