@@ -38,11 +38,10 @@ const EnrolledCourseCard = async ({ enrollment }) => {
 
   // Get all Quizzes and Assignments
   const quizzes = report?.quizAssessment?.assessments;
-  const totalQuizzes = quizzes?.length;
+  const totalQuizzes = quizzes?.length ?? 0;
 
   // Find attempted quizzes
-  const quizzesTaken = quizzes?.filter((q) => q.attempted) || [];
-  console.log(quizzesTaken);
+  const quizzesTaken = quizzes ? quizzes.filter((q) => q.attempted) : [];
 
   // Find how many quizzes answered correct
 
@@ -60,7 +59,7 @@ const EnrolledCourseCard = async ({ enrollment }) => {
 
   const marksFromQuizzes = totalCorrect?.length * 5;
 
-  const otherMarks = report?.quizAssessment?.otherMarks;
+  const otherMarks = report?.quizAssessment?.otherMarks ?? 0;
 
   const totalMarks = marksFromQuizzes + otherMarks;
 
