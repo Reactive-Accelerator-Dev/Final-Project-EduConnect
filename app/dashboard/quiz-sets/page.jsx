@@ -1,3 +1,4 @@
+import { getAllQuizSets } from "@/queries/quizzes";
 import { columns } from "./_components/columns";
 import { DataTable } from "./_components/data-table";
 
@@ -18,6 +19,8 @@ const quizSets = [
   },
 ];
 const QuizSets = async () => {
+  const quizSets = await getAllQuizSets();
+  console.log(quizSets);
   return (
     <div className="p-6">
       <DataTable columns={columns} data={quizSets} />
