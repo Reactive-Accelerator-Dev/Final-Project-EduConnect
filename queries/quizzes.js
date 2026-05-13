@@ -27,3 +27,12 @@ export async function getQuizSetById(id) {
     throw new Error(e);
   }
 }
+
+export async function createQuiz(quizData) {
+  try {
+    const quiz = await Quiz.create(quizData);
+    return quiz._id.toString();
+  } catch (e) {
+    throw new Error(e);
+  }
+}

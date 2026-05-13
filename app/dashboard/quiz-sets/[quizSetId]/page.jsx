@@ -105,7 +105,7 @@ const EditQuizSet = async ({ params: { quizSetId } }) => {
             </div>
 
             <div className="max-w-[800px]">
-              <AddQuizForm />
+              <AddQuizForm quizSetId={quizSetId} />
             </div>
           </div>
         </div>
