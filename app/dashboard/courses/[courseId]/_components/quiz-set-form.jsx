@@ -23,20 +23,7 @@ const formSchema = z.object({
   quizSetId: z.string().min(1),
 });
 
-export const QuizSetForm = ({
-  initialData,
-  courseId,
-  options = [
-    {
-      value: "quiz_set_1",
-      label: "Quiz Set 1",
-    },
-    {
-      value: "2",
-      label: "Quiz Set 2",
-    },
-  ],
-}) => {
+export const QuizSetForm = ({ initialData, courseId, options }) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
 
@@ -80,7 +67,7 @@ export const QuizSetForm = ({
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.quizSetId && "text-slate-500 italic"
+            !initialData.quizSetId && "text-slate-500 italic",
           )}
         >
           {"No quiz set selected"}
