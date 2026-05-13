@@ -51,3 +51,13 @@ export async function addQuizToQuizSet(quizSetId, quizData) {
     throw new Error(e);
   }
 }
+
+export async function doCreateQuizSet(data) {
+  try {
+    data["slug"] = getSlug(data.tite);
+    const craetedQuizSet = await Quizset.create(data);
+    return craetedQuizSet?._id.toString();
+  } catch (e) {
+    throw new Error(e);
+  }
+}

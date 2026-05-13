@@ -38,6 +38,7 @@ export const AddQuizSetForm = () => {
 
   const onSubmit = async (values) => {
     try {
+      console.log(values);
       const quizSetId = await doCreateQuizSet(values);
       router.push(`/dashboard/quiz-sets/${quizSetId}`);
       toast.success("Quiz Set Created");
