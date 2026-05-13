@@ -1,5 +1,5 @@
 import { replaceMongoIdInObject } from "@/lib/convertData";
-import { Lesson } from "@/model/lesson.model";
+import { Lesson } from "@/model/lesson-model";
 
 export async function getLesson(lessonId) {
   const lesson = await Lesson.findById(lessonId).lean();
@@ -12,5 +12,5 @@ export async function create(lessonData) {
     return JSON.parse(JSON.stringify(lesson));
   } catch (err) {
     throw new Error(err);
-  } 
+  }
 }

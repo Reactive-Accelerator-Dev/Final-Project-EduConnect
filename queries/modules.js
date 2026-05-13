@@ -1,6 +1,6 @@
 import { replaceMongoIdInObject } from "@/lib/convertData";
-import { Lesson } from "@/model/lesson.model";
-import { Module } from "@/model/module.model";
+import { Lesson } from "@/model/lesson-model";
+import { Module } from "@/model/module-model";
 
 export async function create(moduleData) {
   try {
