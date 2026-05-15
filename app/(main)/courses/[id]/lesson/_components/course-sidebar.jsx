@@ -1,10 +1,10 @@
 import { CourseProgress } from "@/components/course-progress";
+import { getLoggedInUser } from "@/lib/loggedin-user";
+import { Watch } from "@/model/watch-model";
 import { getCourseDetails } from "@/queries/courses";
 import { DownloadCertificate } from "./download-certificate";
 import { GiveReview } from "./give-review";
 import { SidebarModules } from "./sidebar-modules";
-import { Watch } from "@/model/watch-model";
-import { getLoggedInUser } from "@/lib/loggedin-user";
 
 export const CourseSidebar = async ({ courseId }) => {
   const course = await getCourseDetails(courseId);
@@ -34,7 +34,7 @@ export const CourseSidebar = async ({ courseId }) => {
     }),
   );
 
-//   console.log("updatedModules",updatedModules);
+  //   console.log("updatedModules",updatedModules);
 
   return (
     <>
@@ -45,7 +45,7 @@ export const CourseSidebar = async ({ courseId }) => {
             <CourseProgress variant="success" value={80} />
           </div>
         </div>
-        <SidebarModules />
+        <SidebarModules courseId={courseId} modules={updatedModules} />
 
         <div className="w-full px-6">
           <DownloadCertificate />

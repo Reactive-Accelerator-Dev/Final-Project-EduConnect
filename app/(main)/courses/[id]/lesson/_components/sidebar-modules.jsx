@@ -3,9 +3,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { replaceMongoIdInArray } from "@/lib/convertData";
 import SidebarLessons from "./sidebar-lessons";
 
-export const SidebarModules = () => {
+export const SidebarModules = ({ courseId, modules }) => {
+  const allModules = replaceMongoIdInArray(modules).toSorted(
+    (a, b) => a.order - b.order,
+  );
   return (
     <Accordion
       defaultValue="item-1"
@@ -13,10 +17,16 @@ export const SidebarModules = () => {
       collapsible
       className="w-full px-6"
     >
-      <AccordionItem className="border-0" value="item-1">
-        <AccordionTrigger>Introduction </AccordionTrigger>
-        <SidebarLessons />
-      </AccordionItem>
+      {allModules.map((module) => (
+        <AccordionItem key={module.id} className="border-0" value={module.id}>
+          <AccordionTrigger> {module.title} </AccordionTrigger>
+          <SidebarLessons
+            courseId={courseId}
+            lessons={module.lessonIds}
+            module={module.slug}
+          />
+        </AccordionItem>
+      ))}
     </Accordion>
   );
 };
