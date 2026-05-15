@@ -38,7 +38,7 @@ export default async function Success({
   const customerName = `${loggedInUser?.firstName} ${loggedInUser?.lastName}`;
   const customerEmail = loggedInUser?.email;
   const productName = course?.title;
- // Update DB(Enrollment collection)
+  // Update DB(Enrollment collection)
   if (paymentStatus === "succeeded") {
     const enrolled = await enrollForCourse(
       course?.id,
@@ -66,7 +66,6 @@ export default async function Success({
 
     const emailSentResponse = await sendEmails(emailsToSend);
     // console.log(emailSentResponse);
-
   }
 
   return (
@@ -87,7 +86,7 @@ export default async function Success({
             <Link href="/courses">Browse Courses</Link>
           </Button>
           <Button asChild variant="outline" size="sm">
-            <Link href="/think-in-a-redux-way/introduction">Play Course</Link>
+            <Link href={`/courses/${courseId}/lesson`}>Play Course</Link>
           </Button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { getEnrollmentsForUser } from "@/queries/enrollments";
 import { getUserByEmail } from "@/queries/users";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import EnrolledCourseCard from "../../component/enrolled-coursecard";
 
@@ -15,14 +16,19 @@ async function EnrolledCourses() {
 
   const enrollments = await getEnrollmentsForUser(loggedInUser?.id);
 
-//   console.log(enrollments);
+  //   console.log(enrollments);
 
   return (
     <div className="grid sm:grid-cols-2 gap-6">
       {enrollments && enrollments.length > 0 ? (
         <>
           {enrollments.map((enrollment) => (
-            <EnrolledCourseCard key={enrollment?.id} enrollment={enrollment} />
+            <Link
+              key={enrollment?.id}
+              href={`/courses/${enrollment.course._id.toString()}/lesson}`}
+            >
+              <EnrolledCourseCard enrollment={enrollment} />
+            </Link>
           ))}
         </>
       ) : (
