@@ -8,7 +8,6 @@ import Image from "next/image";
 import Link from "next/link";
 export default async function CourseDetailsIntro({ course }) {
   const session = await auth();
-  if (!session?.user) redirect("/login");
   const loggedInUser = await getUserByEmail(session?.user?.email);
 
   const hasEnrollment = await hasEnrollmentForCourse(
