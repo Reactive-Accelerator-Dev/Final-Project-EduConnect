@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player/youtube";
 
@@ -8,6 +9,8 @@ export default function LessonVideo({ courseId, lesson, module }) {
   const [started, setStarted] = useState(false);
   const [ended, setEnded] = useState(false);
   const [duration, setDuration] = useState(0);
+
+  const router = useRouter();
 
   useEffect(() => {
     setHasWindow(true);
@@ -38,7 +41,30 @@ export default function LessonVideo({ courseId, lesson, module }) {
     started && updateLessonWatch();
   }, [started]);
 
-  useEffect(() => {}, [ended]);
+  useEffect(() => {
+    async function updateLessonWatch() {
+      const response = await fetch("/api/lesson-watch", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          courseId: courseId,
+          lessonId: lesson.id,
+          moduleSlug: module,
+          state: "completed",
+          lastTime: duration,
+        }),
+      });
+
+      if (response.status === 200) {
+        const result = await response.text();
+        setEnded(false);
+        router.refresh();
+      }
+    }
+    ended && updateLessonWatch();
+  }, [ended]);
 
   function handleOnStart() {
     console.log("handleOnStart");
