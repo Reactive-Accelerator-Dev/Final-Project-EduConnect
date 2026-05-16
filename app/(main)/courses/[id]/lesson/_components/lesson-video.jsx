@@ -5,6 +5,9 @@ import ReactPlayer from "react-player/youtube";
 
 export default function LessonVideo({ courseId, lesson, module }) {
   const [hasWindow, setHasWindow] = useState(false);
+  const [started, setStarted] = useState(false);
+  const [ended, setEnded] = useState(false);
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     setHasWindow(true);
@@ -12,14 +15,17 @@ export default function LessonVideo({ courseId, lesson, module }) {
 
   function handleOnStart() {
     console.log("handleOnStart");
+    setStarted(true);
   }
 
   function handleOnEnded() {
     console.log("handleOnEnded");
+    setEnded(true);
   }
 
   function handleOnDuration(duration) {
     console.log("handleOnDuration", duration);
+    setDuration(duration);
   }
 
   function handleOnProgress(state) {
