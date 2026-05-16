@@ -10,14 +10,34 @@ export default function LessonVideo({ courseId, lesson, module }) {
     setHasWindow(true);
   }, []);
 
+  function handleOnStart() {
+    console.log("handleOnStart");
+  }
+
+  function handleOnEnded() {
+    console.log("handleOnEnded");
+  }
+
+  function handleOnDuration(duration) {
+    console.log("handleOnDuration", duration);
+  }
+
+  function handleOnProgress(state) {
+    // console.log("handleOnProgress", state);
+  }
+
   return (
     <>
       {hasWindow && (
         <ReactPlayer
-          url={lesson?.video_url}
+          url={lesson.video_url}
           width="100%"
           height="470px"
-          controls
+          controls={true}
+          onStart={handleOnStart}
+          onDuration={handleOnDuration}
+          onProgress={handleOnProgress}
+          onEnded={handleOnEnded}
         />
       )}
     </>
