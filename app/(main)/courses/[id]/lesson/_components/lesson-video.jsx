@@ -13,6 +13,12 @@ export default function LessonVideo({ courseId, lesson, module }) {
     setHasWindow(true);
   }, []);
 
+  useEffect(() => {
+    
+  }, [started]);
+
+  useEffect(() => {}, [ended]);
+
   function handleOnStart() {
     console.log("handleOnStart");
     setStarted(true);
