@@ -62,6 +62,22 @@ export async function GET(request) {
     const { width, height } = page.getSize();
     const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
 
+    /* -----------------
+     *
+     * Logo
+     *
+     *-------------------*/
+    const logoUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/logo.png`;
+    const logoBytes = await fetch(logoUrl).then((res) => res.arrayBuffer());
+    const logo = await pdfDoc.embedPng(logoBytes);
+    const logoDimns = logo.scale(0.5);
+    page.drawImage(logo, {
+      x: width / 2 - logoDimns.width / 2,
+      y: height - 120,
+      width: logoDimns.width,
+      height: logoDimns.height,
+    });
+
     
   } catch (error) {
     console.log(error);
