@@ -1,5 +1,9 @@
+import fontkit from "@pdf-lib/fontkit";
+import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { getLoggedInUser } from "@/lib/loggedin-user";
 import { getCourseDetails } from "@/queries/courses";
+import { getAReport } from "@/queries/reports";
+import { formatMyDate } from "@/lib/date";
 
 // Fetch custom fonts
 const kalamFontUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/fonts/kalam/Kalam-Regular.ttf`;
