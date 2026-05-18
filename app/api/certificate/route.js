@@ -78,7 +78,19 @@ export async function GET(request) {
       height: logoDimns.height,
     });
 
-    
+    /* -----------------
+     *
+     * Title
+     *
+     *-------------------*/
+
+    const titleFontSize = 30;
+    const titleText = "Certificate Of Completion";
+    // title text width
+    const titleTextWidth = montserrat.widthOfTextAtSize(
+      titleText,
+      titleFontSize,
+    );
   } catch (error) {
     console.log(error);
   }
