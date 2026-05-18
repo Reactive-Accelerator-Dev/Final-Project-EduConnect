@@ -91,6 +91,15 @@ export async function GET(request) {
       titleText,
       titleFontSize,
     );
+
+    page.drawText("Certificate Of Completion", {
+      x: width / 2 - titleTextWidth / 2,
+      y: height - (logoDimns.height + 125),
+      size: titleFontSize,
+      font: montserrat,
+      color: rgb(0, 0.53, 0.71),
+    });
+    
   } catch (error) {
     console.log(error);
   }
