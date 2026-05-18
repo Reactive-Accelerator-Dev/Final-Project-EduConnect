@@ -49,6 +49,20 @@ export async function GET(request) {
     };
 
     console.log(completionInfo);
+
+    const pdfDoc = await PDFDocument.create();
+    pdfDoc.registerFontkit(fontkit);
+
+    const kalamFont = await pdfDoc.embedFont(kalamFontBytes);
+    const montserratItalic = await pdfDoc.embedFont(montserratItalicFontBytes);
+
+    const montserrat = await pdfDoc.embedFont(montserratFontBytes);
+
+    const page = pdfDoc.addPage([841.89, 595.28]);
+    const { width, height } = page.getSize();
+    const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+
+    
   } catch (error) {
     console.log(error);
   }
