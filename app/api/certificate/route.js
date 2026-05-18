@@ -121,6 +121,117 @@ export async function GET(request) {
       font: montserratItalic,
       color: rgb(0, 0, 0),
     });
+
+    /* -----------------
+     *
+     * Name
+     *
+     *-------------------*/
+    const nameText = completionInfo.name;
+
+    const nameFontSize = 40;
+    // title text width
+    const nameTextWidth = timesRomanFont.widthOfTextAtSize(
+      nameText,
+      nameFontSize,
+    );
+
+    page.drawText(nameText, {
+      x: width / 2 - nameTextWidth / 2,
+      y: height - (logoDimns.height + 220),
+      size: nameFontSize,
+      font: kalamFont,
+      color: rgb(0, 0, 0),
+    });
+
+    /* -----------------
+     *
+     * Details Info
+     *
+     *-------------------*/
+    const detailsText = `This is to certify that ${completionInfo.name} successfully completed the ${completionInfo.courseName} course on ${completionInfo.completionDate} by ${completionInfo.instructor}`;
+
+    const detailsFontSize = 16;
+    // title text width
+    const detailsTextWidth = montserrat.widthOfTextAtSize(
+      titleText,
+      titleFontSize,
+    );
+
+    page.drawText(detailsText, {
+      x: width / 2 - 700 / 2,
+      y: height - 330,
+      size: detailsFontSize,
+      font: montserrat,
+      color: rgb(0, 0, 0),
+      maxWidth: 700,
+      wordBreaks: [" "],
+    });
+
+    /* -----------------
+     *
+     * Signatures
+     *
+     *-------------------*/
+    const signatureBoxWidth = 300;
+    page.drawText(completionInfo.instructor, {
+      x: width - signatureBoxWidth,
+      y: 90,
+      size: detailsFontSize,
+      font: timesRomanFont,
+      color: rgb(0, 0, 0),
+    });
+    page.drawText(completionInfo.instructorDesignation, {
+      x: width - signatureBoxWidth,
+      y: 72,
+      size: 10,
+      font: timesRomanFont,
+      color: rgb(0, 0, 0),
+      maxWidth: 250,
+    });
+    page.drawLine({
+      start: { x: width - signatureBoxWidth, y: 110 },
+      end: { x: width - 60, y: 110 },
+      thickness: 1,
+      color: rgb(0, 0, 0),
+    });
+
+    const signUrl = `${process.env.NEXT_PUBLIC_BASE_URL}${completionInfo.sign}`;
+
+    const signBytes = await fetch(signUrl).then((res) => res.arrayBuffer());
+    const sign = await pdfDoc.embedPng(signBytes);
+
+    page.drawImage(sign, {
+      x: width - signatureBoxWidth,
+      y: 120,
+      width: 180,
+      height: 54,
+    });
+
+    // pattern
+    const patternUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/pattern.jpg`;
+
+    const patternBytes = await fetch(patternUrl).then((res) =>
+      res.arrayBuffer(),
+    );
+    const pattern = await pdfDoc.embedJpg(patternBytes);
+
+    page.drawImage(pattern, {
+      x: 0,
+      y: 0,
+      width: width,
+      height: height,
+      opacity: 0.2,
+    });
+    /* -----------------
+     *
+     * Generate and send Response
+     *
+     *-------------------*/
+    const pdfBytes = await pdfDoc.save();
+    return new Response(pdfBytes, {
+      headers: { "content-type": "application/pdf" },
+    });
   } catch (error) {
     console.log(error);
   }
