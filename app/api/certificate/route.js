@@ -99,7 +99,28 @@ export async function GET(request) {
       font: montserrat,
       color: rgb(0, 0.53, 0.71),
     });
-    
+
+    /* -----------------
+     *
+     * Name Label
+     *
+     *-------------------*/
+    const nameLabelText = "This certificate is hereby bestowed upon";
+
+    const nameLabelFontSize = 20;
+    // title text width
+    const nameLabelTextWidth = montserratItalic.widthOfTextAtSize(
+      nameLabelText,
+      nameLabelFontSize,
+    );
+
+    page.drawText(nameLabelText, {
+      x: width / 2 - nameLabelTextWidth / 2,
+      y: height - (logoDimns.height + 170),
+      size: nameLabelFontSize,
+      font: montserratItalic,
+      color: rgb(0, 0, 0),
+    });
   } catch (error) {
     console.log(error);
   }
