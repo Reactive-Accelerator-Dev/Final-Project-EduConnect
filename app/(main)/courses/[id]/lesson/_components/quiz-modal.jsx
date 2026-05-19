@@ -2,10 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 function QuizModal({ courseId, quizSetId, quizzes, open, setOpen }) {
+  const router = useRouter();
   const totalQuizes = quizzes?.length;
   const [quizIndex, setQuizIndex] = useState(0);
+  const [answers, setAnswers] = useState([]);
   const lastQuizIndex = totalQuizes - 1;
   const currentQuiz = quizzes[quizIndex];
 
@@ -21,6 +24,26 @@ function QuizModal({ courseId, quizSetId, quizzes, open, setOpen }) {
       setQuizIndex((prev) => prev - 1);
     }
   };
+
+  const updateAnswer = (event, quizId, quizTitle, selected) => {
+    const key = event.target.name;
+    const checked = event.target.checked;
+
+    const obj = {};
+    if (checked) {
+      obj["option"] = selected;
+    }
+
+    const answer = {
+      quizId: quizId,
+      options: [obj],
+    };
+
+    console.log(answer);
+
+  };
+
+  const submitQuiz = async (event) => {};
 
   return (
     <>
@@ -76,6 +99,14 @@ function QuizModal({ courseId, quizSetId, quizzes, open, setOpen }) {
                   className="opacity-0 invisible absolute [&:checked_+_label]:bg-success/5"
                   type="radio"
                   name="answer"
+                  onChange={(e, quizId, quizTitle, selected) =>
+                    updateAnswer(
+                      e,
+                      quizzes[quizIndex].id,
+                      quizzes[quizIndex].title,
+                      option.label,
+                    )
+                  }
                   id={`option-${option.label}`}
                 />
                 <Label
@@ -95,6 +126,15 @@ function QuizModal({ courseId, quizSetId, quizzes, open, setOpen }) {
             >
               <ArrowLeft /> Previous Quiz
             </Button>
+
+            <Button
+              className="gap-2 rounded-3xl bg-green-600"
+              onClick={submitQuiz}
+              type="submit"
+            >
+              Submit
+            </Button>
+
             <Button
               className="gap-2 rounded-3xl"
               disabled={quizIndex >= lastQuizIndex}
