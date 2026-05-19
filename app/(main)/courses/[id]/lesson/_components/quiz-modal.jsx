@@ -3,12 +3,11 @@ import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState } from "react";
-function QuizModal({ quizes }) {
-  const [open, setOpen] = useState(false);
-  const totalQuizes = quizes?.length;
+function QuizModal({ courseId, quizSetId, quizzes, open, setOpen }) {
+  const totalQuizes = quizzes?.length;
   const [quizIndex, setQuizIndex] = useState(0);
   const lastQuizIndex = totalQuizes - 1;
-  const currentQuiz = quizes[quizIndex];
+  const currentQuiz = quizzes[quizIndex];
 
   // change quiz
   const quizChangeHanlder = (type) => {
