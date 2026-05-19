@@ -3,8 +3,23 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import QuizModal from "./quiz-modal";
-export default function Quiz() {
+export default function Quiz({ courseId, quizSet, isTaken }) {
   const [open, setOpen] = useState(false);
+
+  const quizzes = quizSet.quizIds.map((quiz) => {
+    return {
+      id: quiz._id.toString(),
+      title: quiz.title,
+      description: quiz.description,
+      options: quiz.options.map((option) => {
+        return {
+          label: option.text,
+          isTrue: option.is_correct,
+        };
+      }),
+    };
+  });
+  console.log({ quizzes });
   return (
     <>
       <div class="max-w-[270px] bg-white border border-border rounded-md dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
