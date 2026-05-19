@@ -5,6 +5,7 @@ import { getCourseDetails } from "@/queries/courses";
 import { getAReport } from "@/queries/reports";
 import { DownloadCertificate } from "./download-certificate";
 import { GiveReview } from "./give-review";
+import Quiz from "./quiz";
 import { SidebarModules } from "./sidebar-modules";
 
 export const CourseSidebar = async ({ courseId }) => {
@@ -51,6 +52,11 @@ export const CourseSidebar = async ({ courseId }) => {
 
   //   console.log("updatedModules",updatedModules);
 
+  const quizSet = course?.quizSet;
+  const isQuizComplete = report?.quizAssessment ? true : false;
+  console.log({ quizSet });
+  console.log({ isQuizComplete });
+
   return (
     <>
       <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
@@ -61,6 +67,8 @@ export const CourseSidebar = async ({ courseId }) => {
           </div>
         </div>
         <SidebarModules courseId={courseId} modules={updatedModules} />
+
+        <Quiz />
 
         <div className="w-full px-6">
           <DownloadCertificate
