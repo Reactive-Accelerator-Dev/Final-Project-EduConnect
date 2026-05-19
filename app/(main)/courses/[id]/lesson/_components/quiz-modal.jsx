@@ -1,9 +1,11 @@
+import { addQuizAssessment } from "@/app/actions/quiz";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 function QuizModal({ courseId, quizSetId, quizzes, open, setOpen }) {
   const router = useRouter();
   const totalQuizes = quizzes?.length;
@@ -51,7 +53,15 @@ function QuizModal({ courseId, quizSetId, quizzes, open, setOpen }) {
   };
 
   const submitQuiz = async (event) => {
-    console.log(answers);
+    try {
+      console.log(answers);
+      await addQuizAssessment(courseId, quizSetId, answers);
+      setOpen(false);
+      router.refresh();
+      toast.success(`Thanks for submitting the quiz.`);
+    } catch (error) {
+      toast.error("Problem in submitting the quiz");
+    }
   };
 
   return (
