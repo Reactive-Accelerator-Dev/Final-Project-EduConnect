@@ -40,10 +40,19 @@ function QuizModal({ courseId, quizSetId, quizzes, open, setOpen }) {
     };
 
     console.log(answer);
+    const found = answers.find((a) => a.quizId === answer.quizId);
 
+    if (found) {
+      const filtered = answers.filter((a) => a.quizId !== answer.quizId);
+      setAnswers([...filtered, answer]);
+    } else {
+      setAnswers([...answers, answer]);
+    }
   };
 
-  const submitQuiz = async (event) => {};
+  const submitQuiz = async (event) => {
+    console.log(answers);
+  };
 
   return (
     <>
