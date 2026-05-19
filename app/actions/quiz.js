@@ -1,9 +1,11 @@
 "use server";
 
 import { getSlug, replaceMongoIdInArray } from "@/lib/convertData";
+import { getLoggedInUser } from "@/lib/loggedin-user";
 import { Assessment } from "@/model/assessment-model";
 import { Quizset } from "@/model/quizset-model";
 import { createQuiz, getQuizSetById } from "@/queries/quizzes";
+import { createAssessmentReport } from "@/queries/reports";
 import mongoose from "mongoose";
 
 export async function updateQuizSet(quizset, dataToUpdate) {
@@ -101,6 +103,13 @@ export async function addQuizAssessment(courseId, quizSetId, answers) {
     assessmentEntry.assessments = assessmentRecord;
     assessmentEntry.otherMarks = 0;
     const assessment = await Assessment.create(assessmentEntry);
+    const loggedInUser = await getLoggedInUser();
+
+    await createAssessmentReport({
+      courseId: courseId,
+      userId: loggedInUser.id,
+      quizAssessment: assessment?._id,
+    });
   } catch (err) {
     throw new Error(err);
   }
